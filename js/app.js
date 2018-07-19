@@ -4,6 +4,7 @@
 
 // Global scope 
 const deck = document.querySelector('.deck')
+let moves = 0;
 
 function shuffleDeck() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
@@ -23,6 +24,8 @@ deck.addEventListener('click', event => {
         addToggleCard(clickTarget);
         if (toggledCards.length === 2) {
             checkForMatch(clickTarget);
+            addMove();
+            checkScore();
         }
     }
 });
@@ -64,7 +67,27 @@ function checkForMatch() {
     }
 }
 
+function addMove() {
+    moves++;
+    const movesText = document.querySelector('.moves');
+    movesText.innerHTML = moves;
+}
 
+function checkScore() {
+    if (moves == 16 || moves === 24 || moves === 30) {
+        hideStar();
+    }
+}
+
+function hideStar() {
+    const starList = document.querySelectorAll('.stars li');
+    for (star of starList) {
+        if (star.style.display !== 'none') {
+            star.style.display = 'none';
+            break;
+        }
+    }
+}
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
