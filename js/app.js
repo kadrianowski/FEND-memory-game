@@ -13,8 +13,7 @@ let matched = 0;
 const total = 8;
 
 // modal tests
-
-
+toggleModal();
 
 function shuffleDeck() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
@@ -72,9 +71,6 @@ function checkForMatch() {
         toggledCards[1].classList.toggle('match');
         toggledCards = [];
         matched++;
-        if (matched === total) {
-            gameOver();
-        }
     } else {
         setTimeout(() => {
             toggleCard(toggledCards[0]);
@@ -82,6 +78,9 @@ function checkForMatch() {
             toggledCards = [];
         }, 800);
 
+    }
+    if (matched === total) {
+        gameOver();
     }
 }
 
@@ -147,7 +146,7 @@ function modalStats() {
 
     timeStat.innerHTML = `Time = ${clockTime}`;
     movesStat.innerHTML = `Moves = ${moves}`;
-    starsStat.innerHTML = `Stars = ${stars}`;
+    starsStat.innerHTML = `Rating = ${stars} stars`;
 }
 
 function getStars() {
@@ -165,7 +164,9 @@ function getStars() {
 document.querySelector('.exit-btn').addEventListener('click', () => {
     toggleModal();
 });
-
+document.querySelector('.close').addEventListener('click', () => {
+    toggleModal();
+});
 
 
 function resetGame() {

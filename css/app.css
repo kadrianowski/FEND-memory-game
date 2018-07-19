@@ -142,6 +142,7 @@ h1 {
 .close {
     font-size: 2rem;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .stats {
