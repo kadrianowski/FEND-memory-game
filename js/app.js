@@ -10,6 +10,16 @@ let clockOff = true;
 let time = 0;
 let clockId;
 
+// modal tests
+time = 121;
+displayTime();
+moves=16;
+checkScore();
+
+modalStats();
+toggleModal();
+
+
 
 function shuffleDeck() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
@@ -71,7 +81,7 @@ function checkForMatch() {
             toggleCard(toggledCards[0]);
             toggleCard(toggledCards[1]);
             toggledCards = [];
-        }, 750);
+        }, 800);
 
     }
 }
@@ -123,6 +133,43 @@ function stopClock() {
     clearInterval(clockId);
 }
 
+function toggleModal() {
+    const modal = document.querySelector('.bg-modal');
+    modal.classList.toggle('m-hide');
+}
+
+
+function modalStats() {
+    const timeStat = document.querySelector('.m-time');
+    const clockTime = document.querySelector('.clock').innerHTML;
+    const movesStat = document.querySelector('.m-moves');
+    const starsStat = document.querySelector('.m-stars');
+    const stars = getStars();
+
+    timeStat.innerHTML = `Time = ${clockTime}`;
+    movesStat.innerHTML = `Moves = ${moves}`;
+    starsStat.innerHTML = `Stars = ${stars}`;
+}
+
+function getStars() {
+    stars = document.querySelectorAll('.stars li');
+    starCount = 0;
+    for (star of stars) {
+        if (star.style.display !== 'none') {
+            starCount++;
+        }
+    }
+    console.log(starCount);
+    return starCount;
+}
+
+document.querySelector('.exit-btn').addEventListener('click', () => {
+    toggleModal();
+});
+
+document.querySelector('.replay-btn').addEventListener('click', () => {
+    console.log('replay');
+});
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
