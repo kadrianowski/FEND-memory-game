@@ -4,6 +4,16 @@
 
 // Global scope 
 const deck = document.querySelector('.deck')
+
+function shuffleDeck() {
+    const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
+    const shuffledCards = shuffle(cardsToShuffle);
+    for (card of shuffledCards) {
+        deck.appendChild(card);
+    }
+}
+shuffleDeck();
+
 let toggledCards = [];
 
 deck.addEventListener('click', event => {
@@ -53,6 +63,8 @@ function checkForMatch() {
 
     }
 }
+
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
