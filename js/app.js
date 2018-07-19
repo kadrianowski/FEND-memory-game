@@ -13,7 +13,7 @@ deck.addEventListener('click', event => {
         toggleCard(clickTarget);
         addToggleCard(clickTarget);
         if (toggledCards.length === 2) {
-            console.log('2 cards');
+            checkForMatch();
         }
     }
 });
@@ -26,6 +26,17 @@ function toggleCard(clickTarget) {
 function addToggleCard(clickTarget) {
     toggledCards.push(clickTarget);
     console.log(toggledCards);
+}
+
+function checkForMatch() {
+    if (
+        toggledCards[0].firstElementChild.className ===
+        toggledCards[1].firstElementChild.className
+    ) {
+        console.log('Match!');
+    } else {
+        console.log('Not a match!');
+    }
 }
 /*
  * Display the cards on the page
