@@ -101,10 +101,10 @@ function hideStar() {
 function startClock() {
     clockId = setInterval(() => {
         time++;
+        displayTime();
         console.log(time);
     }, 1000);
 }
-startClock();
 
 function displayTime() {
     const clock = document.querySelector('.clock');
