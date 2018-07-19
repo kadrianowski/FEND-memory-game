@@ -8,8 +8,7 @@ let toggledCards = [];
 
 deck.addEventListener('click', event => {
     const clickTarget = event.target;
-    if (clickTarget.classList.contains('card') &&
-        toggledCards.length < 2) {
+    if (isClickValid(clickTarget)) {
         toggleCard(clickTarget);
         addToggleCard(clickTarget);
         if (toggledCards.length === 2) {
@@ -17,6 +16,15 @@ deck.addEventListener('click', event => {
         }
     }
 });
+
+function isClickValid(clickTarget) {
+    return (
+        clickTarget.classList.contains('card') &&
+        !clickTarget.classList.contains('match') &&
+        toggledCards.length < 2 &&
+        !toggledCards.includes(clickTarget)
+    );
+}
 
 function toggleCard(card) {
     card.classList.toggle('open');
