@@ -13,14 +13,14 @@ deck.addEventListener('click', event => {
         toggleCard(clickTarget);
         addToggleCard(clickTarget);
         if (toggledCards.length === 2) {
-            checkForMatch();
+            checkForMatch(clickTarget);
         }
     }
 });
 
-function toggleCard(clickTarget) {
-    clickTarget.classList.toggle('open');
-    clickTarget.classList.toggle('show');
+function toggleCard(card) {
+    card.classList.toggle('open');
+    card.classList.toggle('show');
 }
 
 function addToggleCard(clickTarget) {
@@ -33,9 +33,16 @@ function checkForMatch() {
         toggledCards[0].firstElementChild.className ===
         toggledCards[1].firstElementChild.className
     ) {
-        console.log('Match!');
+        toggledCards[0].classList.toggle('match');
+        toggledCards[1].classList.toggle('match');
+        toggledCards = [];
     } else {
-        console.log('Not a match!');
+        setTimeout(() => {
+            toggleCard(toggledCards[0]);
+            toggleCard(toggledCards[1]);
+            toggledCards = [];
+        }, 750);
+
     }
 }
 /*
