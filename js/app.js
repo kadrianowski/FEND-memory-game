@@ -9,15 +9,10 @@ let moves = 0;
 let clockOff = true;
 let time = 0;
 let clockId;
+let matched = 0;
+const total = 8;
 
 // modal tests
-time = 121;
-displayTime();
-moves=16;
-checkScore();
-
-modalStats();
-toggleModal();
 
 
 
@@ -76,6 +71,10 @@ function checkForMatch() {
         toggledCards[0].classList.toggle('match');
         toggledCards[1].classList.toggle('match');
         toggledCards = [];
+        matched++;
+        if (matched === total) {
+            gameOver();
+        }
     } else {
         setTimeout(() => {
             toggleCard(toggledCards[0]);
@@ -167,9 +166,58 @@ document.querySelector('.exit-btn').addEventListener('click', () => {
     toggleModal();
 });
 
-document.querySelector('.replay-btn').addEventListener('click', () => {
-    console.log('replay');
-});
+
+
+function resetGame() {
+    resetClockAndTime();
+    resetMoves();
+    resetStars();
+    shuffleDeck();
+    resetCards();
+}
+
+document.querySelector('.restart').addEventListener('click', resetGame);
+
+function resetClockAndTime() {
+    stopClock();
+    clockOff = true;
+    time = 0;
+    displayTime();
+}
+
+function resetMoves() {
+    moves = 0;
+    document.querySelector('.moves').innerHTML = moves;
+}
+
+function resetStars() {
+    stars = 0;
+    const starList = document.querySelectorAll('.stars li');
+    for (star of starList) {
+        star.style.display = 'inline';
+    }
+}
+
+function gameOver() {
+    stopClock();
+    modalStats();
+    toggleModal();
+}
+
+function replayGame() {
+    resetGame();
+    toggleModal();
+    resetCards();
+}
+
+document.querySelector('.replay-btn').addEventListener('click', replayGame);
+
+function resetCards() {
+    const cards = document.querySelectorAll('.deck li');
+    for (let card of cards) {
+        card.className = 'card';
+    }
+}
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
