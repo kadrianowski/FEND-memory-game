@@ -2,6 +2,14 @@
  * Create a list that holds all of your cards
  */
 
+ /*
+ * To do list:
+ * moves -1 
+ * ikony przy modalu
+ * animacje
+ * 
+ */
+
 // Global scope 
 const deck = document.querySelector('.deck')
 let toggledCards = [];
@@ -203,6 +211,7 @@ function gameOver() {
     stopClock();
     modalStats();
     toggleModal();
+    console.log(moves)
 }
 
 function replayGame() {
