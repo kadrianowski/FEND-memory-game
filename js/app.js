@@ -2,13 +2,13 @@
  * Create a list that holds all of your cards
  */
 
- /*
- * To do list:
- * moves -1 
- * ikony przy modalu
- * animacje
- * 
- */
+/*
+* To do list:
+* moves -1 
+* ikony przy modalu
+* animacje
+* 
+*/
 
 // Global scope 
 const deck = document.querySelector('.deck')
@@ -21,7 +21,7 @@ let matched = 0;
 const total = 8;
 
 // modal tests
-toggleModal();
+
 
 function shuffleDeck() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
@@ -153,7 +153,7 @@ function modalStats() {
     const stars = getStars();
 
     timeStat.innerHTML = `Time = ${clockTime}`;
-    movesStat.innerHTML = `Moves = ${moves}`;
+    movesStat.innerHTML = `Moves = ${moves + 1}`; /* If it's stupid but it works, is it really stupid? http://www.younilife.com/site-uploads/2015/11/russian-SUV.jpg */
     starsStat.innerHTML = `Rating = ${stars} stars`;
 }
 
@@ -208,10 +208,9 @@ function resetStars() {
 }
 
 function gameOver() {
-    stopClock();
     modalStats();
+    stopClock();
     toggleModal();
-    console.log(moves)
 }
 
 function replayGame() {
