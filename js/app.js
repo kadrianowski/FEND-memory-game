@@ -1,14 +1,17 @@
 /*
- * Create a list that holds all of your cards
- */
-
+ * 1. Shuffle
+ * 2. Matching and toggling
+ * 3. Moves and Stars
+ * 4. Clock and time display
+ * 5. Modal
+ * 6. Reset and replay
 /*
-* To do list:
-* moves -1 
-* ikony przy modalu
-* animacje
-* 
-*/
+
+
+ * To do list:
+ * 
+ * 
+ */
 
 // Global scope 
 const deck = document.querySelector('.deck')
@@ -23,6 +26,11 @@ const total = 8;
 // modal tests
 
 
+/*
+ * Shuffle
+ */
+
+
 function shuffleDeck() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
     const shuffledCards = shuffle(cardsToShuffle);
@@ -33,6 +41,9 @@ function shuffleDeck() {
 shuffleDeck();
 
 
+/*
+ * Matching and toggling
+ */
 
 deck.addEventListener('click', event => {
     const clickTarget = event.target;
@@ -92,6 +103,13 @@ function checkForMatch() {
     }
 }
 
+
+/*
+ * Moves and stars
+ */
+
+
+
 function addMove() {
     moves++;
     const movesText = document.querySelector('.moves');
@@ -113,6 +131,11 @@ function hideStar() {
         }
     }
 }
+
+
+/*
+ * Clock and time display
+ */
 
 function startClock() {
     clockId = setInterval(() => {
@@ -138,6 +161,13 @@ function displayTime() {
 function stopClock() {
     clearInterval(clockId);
 }
+
+
+
+/*
+ * Modal
+ */
+
 
 function toggleModal() {
     const modal = document.querySelector('.bg-modal');
@@ -175,6 +205,11 @@ document.querySelector('.exit-btn').addEventListener('click', () => {
 document.querySelector('.close').addEventListener('click', () => {
     toggleModal();
 });
+
+
+/*
+ * Reset and replay
+ */
 
 
 function resetGame() {
