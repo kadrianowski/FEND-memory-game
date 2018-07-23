@@ -1,35 +1,13 @@
-/*
- * 1. Shuffle
- * 2. Matching and toggling
- * 3. Moves and Stars
- * 4. Clock and time display
- * 5. Modal
- * 6. Reset and replay
-/*
-
-
- * To do list:
- * 
- * 
- */
-
-// Global scope 
-const deck = document.querySelector('.deck')
+/** Global scope */
+const deck = document.querySelector('.deck');
 let toggledCards = [];
 let moves = 0;
 let clockOff = true;
 let time = 0;
 let clockId;
 let matched = 0;
-const total = 8;
 
-// modal tests
-
-
-/*
- * Shuffle
- */
-
+/** Shuffling function */
 
 function shuffleDeck() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
@@ -40,10 +18,28 @@ function shuffleDeck() {
 }
 shuffleDeck();
 
-
 /*
- * Matching and toggling
+ * Display the cards on the page
+ *   - shuffle the list of cards using the provided "shuffle" method below
+ *   - loop through each card and create its HTML
+ *   - add each card's HTML to the page
  */
+
+// Shuffle function from http://stackoverflow.com/a/2450976
+function shuffle(array) {
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
 
 deck.addEventListener('click', event => {
     const clickTarget = event.target;
@@ -71,6 +67,29 @@ function isClickValid(clickTarget) {
     );
 }
 
+/** Clock and time display */
+
+function startClock() {
+    clockId = setInterval(() => {
+        time++;
+        displayTime();
+    }, 1000);
+}
+
+function displayTime() {
+    const clock = document.querySelector('.clock');
+    //clock.innerHTML = time;
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    if (seconds < 10) {
+        clock.innerHTML = `${minutes}:0${seconds}`;
+    } else {
+        clock.innerHTML = `${minutes}:${seconds}`;
+    }
+}
+
+/** Matching and toggling */
+
 function toggleCard(card) {
     card.classList.toggle('open');
     card.classList.toggle('show');
@@ -78,10 +97,10 @@ function toggleCard(card) {
 
 function addToggleCard(clickTarget) {
     toggledCards.push(clickTarget);
-    console.log(toggledCards);
 }
 
 function checkForMatch() {
+    const total = 8;
     if (
         toggledCards[0].firstElementChild.className ===
         toggledCards[1].firstElementChild.className
@@ -90,6 +109,9 @@ function checkForMatch() {
         toggledCards[1].classList.toggle('match');
         toggledCards = [];
         matched++;
+        if (matched === total) {
+            gameOver();
+        }
     } else {
         setTimeout(() => {
             toggleCard(toggledCards[0]);
@@ -98,17 +120,50 @@ function checkForMatch() {
         }, 800);
 
     }
-    if (matched === total) {
-        gameOver();
-    }
+}
+
+function gameOver() {
+    stopClock();
+    modalStats();
+    toggleModal();
+}
+
+function stopClock() {
+    clearInterval(clockId);
+}
+
+/** Modal */
+
+function toggleModal() {
+    const modal = document.querySelector('.bg-modal');
+    modal.classList.toggle('m-hide');
 }
 
 
-/*
- * Moves and stars
- */
+function modalStats() {
+    const timeStat = document.querySelector('.m-time');
+    const clockTime = document.querySelector('.clock').innerHTML;
+    const movesStat = document.querySelector('.m-moves');
+    const starsStat = document.querySelector('.m-stars');
+    const stars = getStars();
 
+    timeStat.innerHTML = `Time = ${clockTime}`;
+    movesStat.innerHTML = `Moves = ${moves}`; /** If it's stupid but it works, is it really stupid? http://www.younilife.com/site-uploads/2015/11/russian-SUV.jpg */
+    starsStat.innerHTML = `Rating = ${stars} stars`;
+}
 
+function getStars() {
+    stars = document.querySelectorAll('.stars li');
+    starCount = 0;
+    for (star of stars) {
+        if (star.style.display !== 'none') {
+            starCount++;
+        }
+    }
+    return starCount;
+}
+
+/** Moves and stars */
 
 function addMove() {
     moves++;
@@ -132,73 +187,6 @@ function hideStar() {
     }
 }
 
-
-/*
- * Clock and time display
- */
-
-function startClock() {
-    clockId = setInterval(() => {
-        time++;
-        displayTime();
-        console.log(time);
-    }, 1000);
-}
-
-function displayTime() {
-    const clock = document.querySelector('.clock');
-    console.log(clock);
-    clock.innerHTML = time;
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    if (seconds < 10) {
-        clock.innerHTML = `${minutes}:0${seconds}`;
-    } else {
-        clock.innerHTML = `${minutes}:${seconds}`;
-    }
-}
-
-function stopClock() {
-    clearInterval(clockId);
-}
-
-
-
-/*
- * Modal
- */
-
-
-function toggleModal() {
-    const modal = document.querySelector('.bg-modal');
-    modal.classList.toggle('m-hide');
-}
-
-
-function modalStats() {
-    const timeStat = document.querySelector('.m-time');
-    const clockTime = document.querySelector('.clock').innerHTML;
-    const movesStat = document.querySelector('.m-moves');
-    const starsStat = document.querySelector('.m-stars');
-    const stars = getStars();
-
-    timeStat.innerHTML = `Time = ${clockTime}`;
-    movesStat.innerHTML = `Moves = ${moves + 1}`; /* If it's stupid but it works, is it really stupid? http://www.younilife.com/site-uploads/2015/11/russian-SUV.jpg */
-    starsStat.innerHTML = `Rating = ${stars} stars`;
-}
-
-function getStars() {
-    stars = document.querySelectorAll('.stars li');
-    starCount = 0;
-    for (star of stars) {
-        if (star.style.display !== 'none') {
-            starCount++;
-        }
-    }
-    console.log(starCount);
-    return starCount;
-}
-
 document.querySelector('.exit-btn').addEventListener('click', () => {
     toggleModal();
 });
@@ -206,11 +194,16 @@ document.querySelector('.close').addEventListener('click', () => {
     toggleModal();
 });
 
+/** Reset and replay */
 
-/*
- * Reset and replay
- */
+document.querySelector('.replay-btn').addEventListener('click', replayGame);
 
+function replayGame() {
+    resetGame();
+    toggleModal();
+}
+
+document.querySelector('.restart').addEventListener('click', resetGame);
 
 function resetGame() {
     resetClockAndTime();
@@ -219,8 +212,6 @@ function resetGame() {
     shuffleDeck();
     resetCards();
 }
-
-document.querySelector('.restart').addEventListener('click', resetGame);
 
 function resetClockAndTime() {
     stopClock();
@@ -241,51 +232,12 @@ function resetStars() {
         star.style.display = 'inline';
     }
 }
-
-function gameOver() {
-    modalStats();
-    stopClock();
-    toggleModal();
-}
-
-function replayGame() {
-    resetGame();
-    toggleModal();
-    resetCards();
-}
-
-document.querySelector('.replay-btn').addEventListener('click', replayGame);
-
 function resetCards() {
     const cards = document.querySelectorAll('.deck li');
     for (let card of cards) {
         card.className = 'card';
     }
 }
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length,
-        temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
