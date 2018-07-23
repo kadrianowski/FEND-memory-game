@@ -148,7 +148,7 @@ function modalStats() {
     const stars = getStars();
 
     timeStat.innerHTML = `Time = ${clockTime}`;
-    movesStat.innerHTML = `Moves = ${moves}`; /** If it's stupid but it works, is it really stupid? http://www.younilife.com/site-uploads/2015/11/russian-SUV.jpg */
+    movesStat.innerHTML = `Moves = ${moves+1}`; /** If it's stupid but it works, is it really stupid? http://www.younilife.com/site-uploads/2015/11/russian-SUV.jpg */
     starsStat.innerHTML = `Rating = ${stars} stars`;
 }
 
