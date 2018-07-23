@@ -1,33 +1,48 @@
-# Memory Game Project
+# Memory Game Project | Udacity FEND Nanodegree | 2018
+Project 2 for Udacity's Front-End Web Developer Nanodegree course
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Getting started](#started)
+* [How does it work?](#how)
 * [Features](#features)
 * [Special thanks](#special)
-* [Contributing](#contributing)
+* [Dependencies](#dependencies)
 
-## Instructions
+## Getting started
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+* Clone the repository to create a copy on your local machine. Here's how to do it: [GitHub Help — Clone a Repository](https://help.github.com/articles/cloning-a-repository/ "click me")
 
-To get started, open `js/app.js` and start building out the app's functionality
+* Open the `index.html` file in your browser or open it with your favorite editor.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+* Have fun! 
 
+## How does it work?
+
+* The deck contains eight pairs of matching symbols.
+* Click a card to reveal its icon.  
+* Click another card to see if they are the same.
+* If two cards selected in consecutive order are a match, they will stay open.
+* After you uncover them all, a modal will pop up and show you how well you finished the game. 
+* Click replay button or restart icon if you want to improve your score.
 
 ## Features
 
-The game uses a simple matching logic, which enables to toggle on at most 2 cards and compare their values. Each move (each pair comparing) is counted and displayed. There's also a 3-star rating system to showcase 
-player's score. After the game is completed, modal pops up and presents the player with the time it took to finish, number of moves and corresponding star score. From there, the game can be replayed from the scratch.
+* The game uses a simple matching logic, which enables to toggle on at most 2 cards and compare their values. 
+* Each move (each pair comparing) is counted and displayed. 
+* There's also a 3-star rating system to showcase 
+player's score. 
+* After the game is completed, modal pops up and presents the player with the time it took to finish, number of moves and corresponding star score. From there, the game can be replayed from the scratch.
 
 
 ## Special thanks
 
 This wouldn't be possible without StackOverflow, great people of internet and Headspace meditation app. 
 
-## Contributing
+Special thanks to Matthew Cranford. Check out his 
+[blog!](https://matthewcranford.com/ "click me")
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+## Dependencies
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+* Card icons from [Font Awesome 5.1.1](https://fontawesome.com/icons?d=gallery).
+* Everything else remains unchanged, as it is in the original [repository](https://github.com/udacity/fend-project-memory-game "click me")
