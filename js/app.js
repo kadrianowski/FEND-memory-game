@@ -211,6 +211,8 @@ function resetGame() {
     resetStars();
     shuffleDeck();
     resetCards();
+    toggledCards = [];
+    matched = 0;
 }
 
 function resetClockAndTime() {
